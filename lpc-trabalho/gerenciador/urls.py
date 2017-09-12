@@ -19,5 +19,8 @@ from eventos.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^/', index, name='index')
+    url(r'^$', index, name='index'),
+    url(r'^eventos/$', listaEvento, name='listaEvento'),
+    #url(r'^eventos/([0-9]{1})/', get_evento_byID)
+    url(r'^eventos/(?P<id>[0-9]{1})/', get_evento_byID)
 ]

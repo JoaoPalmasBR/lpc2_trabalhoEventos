@@ -22,7 +22,6 @@ class PessoaJuridica(Pessoa):
         return '{} - {}'.format(self.nome, self.cnpj)
 class Autor(Pessoa):
     curriculo = models.CharField(max_length=128)
-    artigos = models.ManyToManyField('ArtigoCientifico')
 
     def __str__(self):
         return '{} - {}'.format(self.nome, self.curriculo)
@@ -41,18 +40,17 @@ class Evento(models.Model):
     cep = models.CharField(max_length=128, null=True, blank=False)
     
     def __str__(self):
-        return '{} - {}'.format(self.nome, self.dataEHoraDeInicio)
+        return '{} - {} - {}'.format(self.nome,self.realizador, self.dataEHoraDeInicio)
 
 class EventoCientifico(Evento):
     issn = models.CharField(max_length=128)
     
     def __str__(self):
-        return '{} - {}'.format(self.nome, self.issn)
+        return '{} - {} - {} - {}'.format(self.nome,self.realizador, self.dataEHoraDeInicio, self.issn)
 
 class ArtigoCientifico(models.Model):
     titulo = models.CharField(max_length=128)
-    autores = models.ManyToManyField('Autor')
     evento = models.ForeignKey(EventoCientifico, null=True, blank=False)
-    
+    autores = models.ManyToManyField('Autor')
     def __str__(self):
-        return '{} - {}'.format(self.titulo, self.evento)
+        return '{} - {}'.format(self.titulo, self.evento.nome)
